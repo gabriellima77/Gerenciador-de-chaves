@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/login.css') }}">
+{% endblock %}
+
+{% block content %}
+
+    <img id="logo" src="../static/img/logoUFCA.png">
+
+    <div id="block">
+        <div class="text-box">
+            <p>Matrícula:</p>
+            <input type="text" name="" id="">
+        </div>
+        <div class="text-box">
+            <p>Nome Completo:</p>
+            <input type="text" name="" id="">
+        </div>
+        <div class="text-box">
+            <p>Email:</p>
+            <input type="email" name="" id="">
+        </div>
+        <div class="text-box">
+            <p>Senha:</p>
+            <input type="password" name="" id="">
+        </div>
+
+        <button class="btn">TELA INICIAL</button>
+
+        <button class="btn">CADASTRAR</button>
+
+    </div>
+
+{% endblock %}
