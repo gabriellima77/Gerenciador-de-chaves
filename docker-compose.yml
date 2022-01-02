@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   flask:
-    image: flask:cc0050
+    image: flask:web_project
     command: python /web_app/app.py
     build: .
     volumes:
@@ -11,4 +11,4 @@ services:
        TZ: America/Fortaleza
     restart: always
     ports:
-      - "4005:80"
+      - "4006:80"
