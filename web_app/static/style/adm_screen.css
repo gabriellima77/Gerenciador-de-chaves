@@ -5,31 +5,68 @@ body{
     font-family: 'Alegreya Sans', sans-serif;
 }
 
+p{
+    font-size: 14pt;
+    font-weight: bold;
+    width: 250px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 2px;
+}
+
+#elements{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
 #logo{
-    position: absolute;
-    width: 590.33px;
-    height: 133px;
-    left: 449px;
-    top: 124px;
+    transform: scale(0.7);
 }
 
 #block{
-    position: absolute;
-    width: 735px;
-    height: 479px;
-    left: 376px;
-    top: 273px;
+    width: 700px;
+    height: 356px;
     background: #FFFFFF;
     border-radius: 20px;
 }
 
 .text-box{
+    position: relative;
+    top: 40px;
+    left: 50px;
+    margin-bottom: 40px;
+    width: 600px;
     border: 1.5px solid #1D1D1B;
     box-sizing: border-box;
     border-radius: 15px;
 }
 
+.text-input{
+    padding: 0px;
+    margin-left: 9px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    height: 30px;
+    width: 580px;
+    border: none;
+}
+
+#btns{
+    position: relative;
+    top: 40px;
+    padding: 0px;
+    margin: 0px;
+    left: 55px;
+}
+
 .btn{
+    width: 140px;
+    height: 50px;
+    margin-left: 40px;
     color: #FFFFFF;
     border-style: none;
     background: #1D1D1B;

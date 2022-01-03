@@ -7,24 +7,25 @@
 {% endblock %}
 
 {% block content %}
+    <div id="elements">
+        <img id="logo" src="../static/img/logoUFCA.png">
 
-    <img id="logo" src="../static/img/logoUFCA.png">
+        <div id="block">
+            <div class="text-box">
+                <p>Código da Chave</p>
+                <input class="text-input" type="text" name="" id="">
+            </div>
+            <div class="text-box">
+                <p>Nome da Chave</p>
+                <input class="text-input" type="text" name="" id="">
+            </div>
 
-    <div id="block">
-        <div class="text-box">
-            <p>Código da Chave</p>
-            <input type="text" name="" id="">
+            <div id="btns">
+                <button class="btn">CADASTRAR</button>
+                <button class="btn">REMOVER</button>
+                <button class="btn">LOGOUT</button>
+            </div>
         </div>
-        <div class="text-box">
-            <p>Nome da Chave</p>
-            <input type="text" name="" id="">
-        </div>
-
-        <button class="btn">CADASTRAR</button>
-
-        <button class="btn">REMOVER</button>
-
-        <button class="btn">LOGOUT</button>
     </div>
     
 {% endblock %}
