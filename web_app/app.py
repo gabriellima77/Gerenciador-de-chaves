@@ -10,7 +10,7 @@ logging.basicConfig(filename='/web_app/app.log', filemode='w', format='%(asctime
 
 @app.route('/')
 def root():
-    return (render_template('register_user.html'))
+    return (render_template('login.html'))
 
 if __name__ == "__main__":
     serve(app, host='0.0.0.0', port=80, url_prefix='/app')

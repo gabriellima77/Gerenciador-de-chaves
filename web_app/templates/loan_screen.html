@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/loan_screen.css') }}">
+{% endblock %}
+
+{% block content %}
+
+    <img id="logo" src="../static/img/logo.png">
+
+    <div id="block">
+        <div class="text-box">
+            <p>Código da Chave</p>
+            <div></div>
+        </div>
+        <div class="text-box">
+            <p>Nome da Chave</p>
+            <div></div>
+        </div>
+        <div class="text-box">
+            <p>Horário Limite</p>
+            <div></div>
+        </div>
+        <div class="text-box">
+            <p>Status</p>
+            <div></div>
+        </div>
+
+        <button class="btn">LOGOUT</button>
+
+    </div>
+
+{% endblock %}
