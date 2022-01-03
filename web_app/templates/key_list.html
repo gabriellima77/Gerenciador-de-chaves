@@ -6,23 +6,29 @@
 
 {% block content %}
 
-    <img id="logo" src="../static/img/logoUFCA.png">
+    <div id="elements">
+        <header>
+            <img id="logo" src="../static/img/logoUFCA.png">
 
-    <div id="search">
-        <input type="search" name="" id="">
-        <img id="logo" src="../static/img/lupa.png">
-    </div>
+            <div id="search">
+                <input class="text-input" type="search" name="">
+                <img id="lupa" src="../static/img/lupa.png">
+            </div>
+        </header>
+        
+        <div id="options">
+            <select name="" id="select1"></select>
+
+            <button class="btn" id="btn1">LOGOUT</button>
     
-    <select name="" id=""></select>
+            <button class="btn" id="btn2">RESERVAR</button>
+    
+            <select name="" id="select2"></select>
+        </div>
+        
+        <div id="block">        
 
-    <button class="btn">LOGOUT</button>
-
-    <button class="btn">RESERVAR</button>
-
-    <select name="" id=""></select>
-
-    <div id="block">        
-
+        </div>
     </div>
 
 {% endblock %}
