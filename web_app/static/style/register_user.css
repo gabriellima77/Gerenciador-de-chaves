@@ -61,20 +61,3 @@ p {
   border: none;
 }
 
-#btns {
-  width: 75%;
-  display: flex;
-  justify-content: space-around;
-  position: relative;
-  padding: 0px;
-  margin: 0px;
-}
-
-.btn {
-  width: 140px;
-  height: 50px;
-  color: #ffffff;
-  border-style: none;
-  background: #1d1d1b;
-  border-radius: 26px;
-}

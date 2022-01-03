@@ -57,21 +57,3 @@ p{
     width: 97%;
     border: none;
 }
-
-#btns{
-    width: 75%;
-    display: flex;
-    justify-content: space-around;
-    position: relative;
-    padding: 0px;
-    margin: 0px;
-}
-
-.btn{
-    width: 140px;
-    height: 50px;
-    color: #FFFFFF;
-    border-style: none;
-    background: #1D1D1B;
-    border-radius: 26px;
-}

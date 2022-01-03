@@ -2,6 +2,7 @@ from flask import Flask
 from waitress import serve
 from flask import render_template
 from flask import request, url_for, redirect, flash, session
+from formLogin import LoginForm
 import logging
 
 app = Flask(__name__)

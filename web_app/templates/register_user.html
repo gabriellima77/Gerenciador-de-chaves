@@ -1,37 +1,35 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block style %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='style/register_user.css') }}"
+/>
+{% endblock %} {% block content %}
+<div id="elements">
+  <img id="logo" src="../static/img/logoUFCA.png" />
 
-{% block style %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/register_user.css') }}">
-{% endblock %}
-
-{% block content %}
-    <div id="elements">
-        <img id="logo" src="../static/img/logoUFCA.png">
-    
-        <div id="block">
-            <div class="text-box">
-                <p>Matrícula:</p>
-                <input class="text-input" type="text" name="" id="">
-            </div>
-            <div class="text-box">
-                <p>Nome Completo:</p>
-                <input class="text-input" type="text" name="" id="">
-            </div>
-            <div class="text-box">
-                <p>Email:</p>
-                <input class="text-input" type="email" name="" id="">
-            </div>
-            <div class="text-box">
-                <p>Senha:</p>
-                <input class="text-input" type="text" name="" id="">
-            </div>
-            
-            <div id="btns">
-                <button class="btn">TELA INICIAL</button>
-                <button class="btn">CADASTRAR</button>
-            </div>
-
-        </div>
+  <div id="block">
+    <div class="text-box">
+      <p>Matrícula:</p>
+      <input class="text-input" type="text" name="" id="" />
     </div>
+    <div class="text-box">
+      <p>Nome Completo:</p>
+      <input class="text-input" type="text" name="" id="" />
+    </div>
+    <div class="text-box">
+      <p>Email:</p>
+      <input class="text-input" type="email" name="" id="" />
+    </div>
+    <div class="text-box">
+      <p>Senha:</p>
+      <input class="text-input" type="text" name="" id="" />
+    </div>
+
+    <div id="btns">
+      <a href="{{url_for('root')}}" class="btn">TELA INICIAL</a>
+      <button class="btn">CADASTRAR</button>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
