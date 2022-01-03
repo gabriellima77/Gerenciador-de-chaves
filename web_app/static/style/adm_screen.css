@@ -1,84 +1,80 @@
-@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@100;300&display=swap');
 
-body{
-    background-color: #1D1D1B;
-    font-family: 'Alegreya Sans', sans-serif;
+textarea:focus,
+input:focus,
+select:focus {
+  box-shadow: 0 0 0 0;
+  border: 0 none;
+  outline: 0;
 }
 
-textarea:focus, input:focus, select:focus {
-    box-shadow: 0 0 0 0;
-    border: 0 none;
-    outline: 0;
+#elements {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
 }
 
-#elements{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 40px;
+#logo {
+  transform: scale(0.8);
+  width: 30%;
 }
 
-#logo{
-    transform: scale(0.8);
-    width: 30%;
+#block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: 356px;
+  background: #ffffff;
+  border-radius: 20px;
 }
 
-#block{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 40%;
-    height: 356px;
-    background: #FFFFFF;
-    border-radius: 20px;
+p {
+  font-size: 14pt;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 2px;
 }
 
-p{
-    font-size: 14pt;
-    font-weight: bold;
-    width: 100%;
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-bottom: 2px;
+.text-box {
+  width: 90%;
+  position: relative;
+  margin-bottom: 40px;
+  border: 1.5px solid #1d1d1b;
+  box-sizing: border-box;
+  border-radius: 15px;
 }
 
-.text-box{
-    width: 90%;
-    position: relative;
-    margin-bottom: 40px;
-    border: 1.5px solid #1D1D1B;
-    box-sizing: border-box;
-    border-radius: 15px;
+.text-input {
+  padding: 0px;
+  margin-left: 9px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  height: 30px;
+  width: 97%;
+  border: none;
 }
 
-.text-input{
-    padding: 0px;
-    margin-left: 9px;
-    margin-right: 10px;
-    margin-bottom: 5px;
-    border-radius: 10px;
-    height: 30px;
-    width: 97%;
-    border: none;
+#btns {
+  width: 75%;
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  padding: 0px;
+  margin: 0px;
 }
 
-#btns{
-    width: 75%;
-    display: flex;
-    justify-content: space-around;
-    position: relative;
-    padding: 0px;
-    margin: 0px;
-}
-
-.btn{
-    width: 140px;
-    height: 50px;
-    color: #FFFFFF;
-    border-style: none;
-    background: #1D1D1B;
-    border-radius: 26px;
+.btn {
+  width: 140px;
+  height: 50px;
+  color: #ffffff;
+  border-style: none;
+  background: #1d1d1b;
+  border-radius: 26px;
 }
