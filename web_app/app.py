@@ -21,7 +21,7 @@ from database import db
 
 app = Flask(__name__)
 CSRFProtect(app)
-CSV_DIR = '/flask/'
+CSV_DIR = '/web_app/'
 
 # Configuração da sessão
 app.config['SESSION_TYPE'] = 'filesystem'
@@ -43,13 +43,26 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 db.init_app(app)
 
 
-@app.route('/', methods=['POST', 'GET'])
+@app.before_first_request
+def inicializar_bd():
+    # db.drop_all()
+    db.create_all()
+
+
+@app.route('/')
 def root():
+    if session.get('autenticado', False) == False:
+        return (redirect(url_for('login')))
+    return (render_template('key_list.html'))
+
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
     form = LoginForm()
     if form.validate_on_submit():
         # PROCESSAMENTO DOS DADOS RECEBIDOS
-        email = request.form['usuario']
-        senha = request.form['senha']
+        email = request.form['email']
+        senha = request.form['password']
         senhahash = hashlib.sha1(senha.encode('utf8')).hexdigest()
         # Verificar se existe alguma linha na tabela usuários com o login e senha recebidos
         linha = Usuario.query.filter(
@@ -59,24 +72,12 @@ def root():
             session['usuario'] = linha[0].id
             flash(u'Usuário autenticado com sucesso!')
             resp = make_response(redirect(url_for('root')))
-            if 'contador' in request.cookies:
-                contador = int(request.cookies['contador'])
-                contador = contador + 1
-            else:
-                contador = 1
-            resp.set_cookie('contador', str(contador))
             return(resp)
         else:  # Usuário e senha não conferem
             flash(u'Usuário e/ou senha não conferem!')
             resposta = make_response(redirect(url_for('login')))
-            if 'contador2' in request.cookies:
-                contador2 = int(request.cookies['contador2'])
-                contador2 = contador2 + 1
-            else:
-                contador2 = 1
-            resposta.set_cookie('contador2', str(contador2))
             return(resposta)
-    return (render_template('login.html', form=form, action=url_for('login')))
+    return (render_template('login.html', form=form, action=url_for('admin')))
 
 
 @app.route('/admin')
