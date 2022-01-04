@@ -73,7 +73,11 @@ def login():
         if (len(linha) > 0):  # "Anota" na sessão que o usuário está autenticado
             session['autenticado'] = True
             session['usuario'] = linha[0].email
-            resp = make_response(redirect(url_for('lista_chaves')))
+            emprestimo = Emprestimo.query.get(email)
+            if(emprestimo):
+                resp = make_response(redirect(url_for('emprestimos')))
+            else:
+                resp = make_response(redirect(url_for('lista_chaves')))
             if email == 'admin@admin':
                 session['admin'] = True
                 resp = make_response(redirect(url_for('admin')))
@@ -143,7 +147,7 @@ def lista_chaves():
         if(chave.disponivel):
             chave.disponivel = False
             novoEmprestimo = Emprestimo(
-                id=1, email_usuario=session['usuario'], codigo_chave=codigo)
+                email_usuario=session['usuario'], codigo_chave=codigo)
             db.session.add(novoEmprestimo)
             db.session.commit()
             return make_response(redirect(url_for('emprestimos')))
