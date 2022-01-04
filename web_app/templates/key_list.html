@@ -5,6 +5,31 @@
 />
 {% endblock %} {% block content %}
 
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  
+  {% for message in messages %}
+    <div class="alert" role="alert">
+      {{message}}
+    </div>
+  {% endfor %}
+  
+{% endif %}
+{% endwith %}
+
+<script>
+  function getData(e){
+    console.log(e.target.nodeName);
+    if(e.target.nodeName === 'INPUT'){
+      const codigo = e.target.value;
+      const nome = e.target.parentElement.parentElement.querySelector('.nome').textContent;
+      console.log(codigo, nome);
+      document.querySelector('#nome').value = nome;
+      document.querySelector('#codigo').value = codigo;
+    } 
+  }
+</script>
+
 <div id="elements">
   <header>
     <img id="logo" src="../static/img/logoUFCA.png" />
@@ -21,8 +46,14 @@
       {{form.csrf_token}}
       <button type="submit" class="btn" id="btn1">LOGOUT</button>
     </form>
-
-    <button class="btn" id="btn2">RESERVAR</button>
+    <form class="form" action="{{ url_for('lista_chaves') }}" method="post">
+      {{formChave.csrf_token}}
+      <label class="hidden" for="nome">Nome da chave</label>
+      <input class="hidden" type="text" name="nome" id="nome" />
+      <label class="hidden" for="codigo">Codigo</label>
+      <input class="hidden" type="text" name="codigo" id="codigo" />
+      <button type="submit" name="reservar" class="btn" id="btn2">RESERVAR</button>
+    </form>
 
     <select name="" id="select2"></select>
   </div>
@@ -30,14 +61,17 @@
   <div id="block">
     <table class="table">
       <tr>
+        <th></th>
           <th>Código</th>
           <th>Nome</th>
           <th>Status</th>
       </tr>
       {% for chave in chaves %}
-          <tr>
+          <tr >
+            <td><input onclick="getData(event);" class="chave" type="radio" name="chave" value={{chave.codigo}} /></td>
+            
               <td>{{chave.codigo}}</td>
-              <td>{{chave.nome}}</td>
+              <td class="nome">{{chave.nome}}</td>
               {% if chave.disponivel == True %}
                 <td>Disponível</td>
               {% endif %}

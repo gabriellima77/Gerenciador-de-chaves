@@ -131,11 +131,25 @@ def admin():
     return (render_template('adm_screen.html', form=form, formLogout=formLogout))
 
 
-@app.route('/lista-chaves')
+@app.route('/lista-chaves', methods=['POST', 'GET'])
 def lista_chaves():
     form = UsuarioForm()
+    formChave = ChaveForm()
+    if formChave.validate_on_submit():
+        # PROCESSAMENTO DOS DADOS RECEBIDOS
+        nome = request.form['nome']
+        codigo = request.form['codigo']
+        chave = Chave.query.get(int(codigo))
+        if(chave.disponivel):
+            chave.disponivel = False
+            novoEmprestimo = Emprestimo(
+                id=1, email_usuario=session['usuario'], codigo_chave=codigo)
+            db.session.add(novoEmprestimo)
+            db.session.commit()
+            return make_response(redirect(url_for('emprestimos')))
+
     chaves = Chave.query.order_by(Chave.nome).all()
-    return (render_template('key_list.html', form=form, chaves=chaves))
+    return (render_template('key_list.html', form=form, chaves=chaves, formChave=formChave))
 
 
 @app.route('/emprestimos')
@@ -167,6 +181,7 @@ def registro():
         flash(admin)
         return(redirect(url_for('root')))
     return (render_template('register_user.html', form=form))
+
 
 '''def remove(chave):
     if(len(chave) > 0):
