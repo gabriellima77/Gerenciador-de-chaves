@@ -1,11 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, IntegerField
+from wtforms import StringField, SubmitField, PasswordField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired
 
 
 class UsuarioForm(FlaskForm):
-    email = EmailField('E-mail: ', validators=[DataRequired()])
-    nome = StringField(u'Nome de usuário: ', validators=[DataRequired()])
+    nome = StringField('Nome Completo: ', validators=[DataRequired()])
+    email = EmailField('Email: ', validators=[DataRequired()])
     senha = PasswordField('Senha: ', validators=[DataRequired()])
-    enviar = SubmitField('CADASTRAR')
+    enviar = SubmitField('submit')

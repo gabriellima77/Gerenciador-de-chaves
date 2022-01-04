@@ -1,34 +1,33 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block style %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='style/key_list.css') }}"
+/>
+{% endblock %} {% block content %}
 
-{% block style %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/key_list.css') }}">
-{% endblock %}
+<div id="elements">
+  <header>
+    <img id="logo" src="../static/img/logoUFCA.png" />
 
-{% block content %}
-
-    <div id="elements">
-        <header>
-            <img id="logo" src="../static/img/logoUFCA.png">
-
-            <div id="search">
-                <input class="text-input" type="search" name="">
-                <img id="lupa" src="../static/img/lupa.png">
-            </div>
-        </header>
-        
-        <div id="options">
-            <select name="" id="select1"></select>
-
-            <button class="btn" id="btn1">LOGOUT</button>
-    
-            <button class="btn" id="btn2">RESERVAR</button>
-    
-            <select name="" id="select2"></select>
-        </div>
-        
-        <div id="block">        
-
-        </div>
+    <div id="search">
+      <input class="text-input" type="search" name="" />
+      <img id="lupa" src="../static/img/lupa.png" />
     </div>
+  </header>
+
+  <div id="options">
+    <select name="" id="select1"></select>
+    <form class="logout-form" action="{{ url_for('logout') }}" method="post">
+      {{form.csrf_token}}
+      <button type="submit" class="btn" id="btn1">LOGOUT</button>
+    </form>
+
+    <button class="btn" id="btn2">RESERVAR</button>
+
+    <select name="" id="select2"></select>
+  </div>
+
+  <div id="block"></div>
+</div>
 
 {% endblock %}

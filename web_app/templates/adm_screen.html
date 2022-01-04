@@ -1,31 +1,44 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block style %}
 
-{% block style %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='style/adm_screen.css') }}"
+/>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/adm_screen.css') }}">
+{% endblock %} {% block content %}
+<div id="elements">
+  <img id="logo" src="../static/img/logoUFCA.png" />
 
-{% endblock %}
-
-{% block content %}
-    <div id="elements">
-        <img id="logo" src="../static/img/logoUFCA.png">
-
-        <div id="block">
-            <div class="text-box">
-                <p>Código da Chave</p>
-                <input class="text-input" type="text" name="" id="">
-            </div>
-            <div class="text-box">
-                <p>Nome da Chave</p>
-                <input class="text-input" type="text" name="" id="">
-            </div>
-
-            <div id="btns">
-                <button class="btn">CADASTRAR</button>
-                <button class="btn">REMOVER</button>
-                <button class="btn">LOGOUT</button>
-            </div>
-        </div>
+  <form
+    action="{{ url_for('admin') }}"
+    role="form"
+    class="form"
+    method="POST"
+    id="block"
+  >
+  {{form.csrf_token}} 
+  {% with messages = get_flashed_messages() %}
+  {% if messages %} 
+  {% for message in messages %}
+    <div class="alert" role="alert">{{message}}</div>
+  {% endfor %}
+  {% endif %} 
+  {% endwith %}
+    <div class="text-box">
+      <label>Código da Chave</label>
+      <input class="text-input" type="text" name="codigo" id="codigo" />
     </div>
-    
+    <div class="text-box">
+      <label>Nome da Chave</label>
+      <input class="text-input" type="text" name="nome" id="nome" />
+    </div>
+
+    <div id="btns">
+      <button class="btn">CADASTRAR</button>
+      <button class="btn">REMOVER</button>
+      <button class="btn">LOGOUT</button>
+    </div>
+  </form>
+</div>
+
 {% endblock %}

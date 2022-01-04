@@ -1,35 +1,45 @@
-{% extends "base.html" %} {% block style %}
+{% extends "base.html" %}
+{% block style %}
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='style/register_user.css') }}"
 />
-{% endblock %} {% block content %}
+{% endblock %}
+{% block content %}
 <div id="elements">
   <img id="logo" src="../static/img/logoUFCA.png" />
 
-  <div id="block">
-    <div class="text-box">
-      <p>Matrícula:</p>
-      <input class="text-input" type="text" name="" id="" />
+  <form action="{{ url_for('registro') }}" role="form" class="form" method="POST" id="block">
+    {{form.csrf_token}}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      
+      {% for message in messages %}
+        <div class="alert" role="alert">
+          {{message}}
+        </div>
+      {% endfor %}
+      
+    {% endif %}
+  {% endwith %}
+    <div class="control text-box">
+      <label for="nome">Nome Completo:</label>
+      <input class="text-input" type="text" name="nome" id="nome" />
     </div>
-    <div class="text-box">
-      <p>Nome Completo:</p>
-      <input class="text-input" type="text" name="" id="" />
+    <div class="control text-box">
+      <label for="email">Email:</label>
+      <input class="text-input" type="email" name="email" id="email" />
     </div>
-    <div class="text-box">
-      <p>Email:</p>
-      <input class="text-input" type="email" name="" id="" />
-    </div>
-    <div class="text-box">
-      <p>Senha:</p>
-      <input class="text-input" type="text" name="" id="" />
+    <div class="control text-box">
+      <label for="senha">Senha:</label>
+      <input class="text-input" type="password" name="senha" id="senha" />
     </div>
 
-    <div id="btns">
+    <div class="control" id="btns">
       <a href="{{url_for('root')}}" class="btn">TELA INICIAL</a>
-      <button class="btn">CADASTRAR</button>
+      <button type="submit" value="submit" class="btn">CADASTRAR</button>
     </div>
-  </div>
+  </form>
 </div>
 
 {% endblock %}

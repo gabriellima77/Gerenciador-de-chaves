@@ -1,13 +1,15 @@
-{% extends "base.html" %} {% block style %}
+{% extends "base.html" %}
+{% block style %}
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='style/login.css') }}"
 />
-{% endblock %} {% block content %}
+{% endblock %}
+{% block content %}
 
 <div id="elements">
   <img id="logo" src="../static/img/logoUFCA.png" />
-  <form action="{{ url_for('login') }}" role="form" class="form" method="post" id="block">
+  <form action="{{ url_for('login') }}" role="form" class="form" method="POST" id="block">
     {{form.csrf_token}}
     {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -25,11 +27,11 @@
         <input class="text-input" type="email" name="email" id="email" />
     </div>
     <div class="control text-box">
-        <label for="password">Senha:</label>
-        <input class="text-input" type="password" name="password" id="password" />
+        <label for="senha">Senha:</label>
+        <input class="text-input" type="password" name="senha" id="senha" />
     </div>
     <div id="btns">
-        <a href="{{url_for('registro')}}"" class="btn">CADASTRAR</a>
+        <a href="{{url_for('registro')}}" class="btn">CADASTRAR</a>
         <button type="submit" value="submit" class="btn">LOGIN</button>
     </div>
   </div>
