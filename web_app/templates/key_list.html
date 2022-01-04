@@ -27,7 +27,27 @@
     <select name="" id="select2"></select>
   </div>
 
-  <div id="block"></div>
+  <div id="block">
+    <table class="table">
+      <tr>
+          <th>Código</th>
+          <th>Nome</th>
+          <th>Status</th>
+      </tr>
+      {% for chave in chaves %}
+          <tr>
+              <td>{{chave.codigo}}</td>
+              <td>{{chave.nome}}</td>
+              {% if chave.disponivel == True %}
+                <td>Disponível</td>
+              {% endif %}
+              {% if chave.disponivel == False %}
+                <td>Indisponível</td>
+              {% endif %}
+          </tr>
+      {% endfor %}
+      
+  </div>
 </div>
 
 {% endblock %}

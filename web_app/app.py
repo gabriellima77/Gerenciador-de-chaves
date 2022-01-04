@@ -134,7 +134,8 @@ def admin():
 @app.route('/lista-chaves')
 def lista_chaves():
     form = UsuarioForm()
-    return (render_template('key_list.html', form=form))
+    chaves = Chave.query.order_by(Chave.nome).all()
+    return (render_template('key_list.html', form=form, chaves=chaves))
 
 
 @app.route('/emprestimos')
