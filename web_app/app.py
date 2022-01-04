@@ -53,9 +53,10 @@ def inicializar_bd():
 
 @app.route('/', methods=['POST', 'GET'])
 def root():
+    form = LoginForm()
     if session.get('autenticado', False) == False:
         return (redirect(url_for('login')))
-    return (render_template('login.html'))
+    return (render_template('login.html', form=form))
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -72,18 +73,19 @@ def login():
         if (len(linha) > 0):  # "Anota" na sessão que o usuário está autenticado
             session['autenticado'] = True
             session['usuario'] = linha[0].email
+            resp = make_response(redirect(url_for('lista_chaves')))
             if email == 'admin@admin':
                 session['admin'] = True
-            resp = make_response(redirect(url_for('lista_chaves')))
+                resp = make_response(redirect(url_for('admin')))
             return(resp)
         else:  # Usuário e senha não conferem
             flash(u'Usuário e/ou senha não conferem!')
             resposta = make_response(redirect(url_for('login')))
             return(resposta)
-    return (render_template('login.html', form=form, action=url_for('lista_chaves')))
+    return (render_template('login.html', form=form))
 
 
-@app.route('/logout', methods=['POST'])
+@app.route('/logout', methods=['POST', 'GET'])
 def logout():
     session['autenticado'] = False
     session['usuario'] = ''
@@ -93,19 +95,40 @@ def logout():
 
 @app.route('/admin', methods=['POST', 'GET'])
 def admin():
-    if session.get('autenticado', False) == False:
+    if session.get('autenticado', False) == False or session.get('admin', False) == False:
         return (redirect(url_for('login')))
     form = ChaveForm()
+    formLogout = UsuarioForm()
+
+    logout = request.form.get('logout')
+    if (logout == 'logout'):
+        return make_response(redirect(url_for('logout')))
+
     if form.validate_on_submit():
         # PROCESSAMENTO DOS DADOS RECEBIDOS
         nome = request.form['nome']
         codigo = request.form['codigo']
-        novaChave = Chave(nome=nome, codigo=codigo)
-        db.session.add(novaChave)
-        db.session.commit()
-        flash('Chave cadastrada com sucesso!')
-        return(redirect(url_for('root')))
-    return (render_template('manager_keys.html', form=form))
+        remover = request.form.get('remover')
+
+        chave = Chave.query.filter(Chave.codigo == codigo).all()
+
+        if(len(chave) > 0):
+            message = 'Chave já cadastrada!'
+            if (remover == 'remover'):
+                Chave.query.filter_by(codigo=codigo).delete()
+                db.session.commit()
+                message = 'Chave removida!'
+            flash(message)
+        else:
+            message = 'Chave cadastrada com sucesso!'
+            if (remover == 'remover'):
+                message = 'Chave não encontrada!'
+            else:
+                novaChave = Chave(nome=nome, codigo=codigo)
+                db.session.add(novaChave)
+                db.session.commit()
+            flash(message)
+    return (render_template('adm_screen.html', form=form, formLogout=formLogout))
 
 
 @app.route('/lista-chaves')
@@ -143,6 +166,14 @@ def registro():
         flash(admin)
         return(redirect(url_for('root')))
     return (render_template('register_user.html', form=form))
+
+'''def remove(chave):
+    if(len(chave) > 0):
+        db.session.delete(chave)
+        db.session.commit()
+        flash('Chave removida com sucesso!')
+    else:
+        flash('Chave não encontrada!')'''
 
 
 if __name__ == "__main__":
