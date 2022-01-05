@@ -7,7 +7,18 @@
 
 {% endblock %} {% block content %}
 <div id="elements">
-  <img id="logo" src="../static/img/logoUFCA.png" />
+  <header>
+    <img id="logo" src="../static/img/logoUFCA.png">
+
+    <div id="options">
+        <a href="{{url_for('chaves')}}" class="btn" id="btn1">LISTA DE CHAVES</a>
+        
+        <form class="logout-form" action="{{ url_for('logout') }}" method="post">
+            {{form.csrf_token}}
+            <button type="submit" class="btn" id="btn1">LOGOUT</button>
+        </form>
+    </div>
+  </header>
 
   <form
     action="{{ url_for('admin') }}"
@@ -35,10 +46,10 @@
 
     <div id="btns">
       <button type="submit" value="submit" class="btn">CADASTRAR</button>
+
+      <button type="submit" name="disponivel" value="disponivel" class="btn" id="btn1">DISPONIVEL</button>
       
       <button type="submit" name="remover" value="remover" class="btn" id="btn1">REMOVER</button>
-
-      <button type="submit" name="logout" value="logout" class="btn" id="btn1">LOGOUT</button>
     </div>
   </form>
 </div>

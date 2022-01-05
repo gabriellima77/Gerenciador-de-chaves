@@ -8,7 +8,6 @@ from flask import request, url_for, redirect, flash, make_response
 from flask_wtf.csrf import CSRFProtect
 import logging
 import os
-import datetime
 from formLogin import LoginForm
 from formUsuario import UsuarioForm
 from formChave import ChaveForm
@@ -80,7 +79,7 @@ def login():
                 resp = make_response(redirect(url_for('lista_chaves')))
             if email == 'admin@admin':
                 session['admin'] = True
-                resp = make_response(redirect(url_for('admin')))
+                resp = make_response(redirect(url_for('chaves')))
             return(resp)
         else:  # Usuário e senha não conferem
             flash(u'Usuário e/ou senha não conferem!')
@@ -113,12 +112,18 @@ def admin():
         nome = request.form['nome']
         codigo = request.form['codigo']
         remover = request.form.get('remover')
+        disponivel = request.form.get('disponivel')
 
         chave = Chave.query.filter(Chave.codigo == codigo).all()
 
         if(len(chave) > 0):
             message = 'Chave já cadastrada!'
-            if (remover == 'remover'):
+            if (disponivel == 'disponivel'):
+                chave = Chave.query.get(int(codigo))
+                chave.disponivel = True
+                db.session.commit()
+                message = 'Chave Entregue'
+            elif (remover == 'remover'):
                 Chave.query.filter_by(codigo=codigo).delete()
                 db.session.commit()
                 message = 'Chave removida!'
@@ -146,8 +151,7 @@ def lista_chaves():
         chave = Chave.query.get(int(codigo))
         if(chave.disponivel):
             chave.disponivel = False
-            novoEmprestimo = Emprestimo(
-                email_usuario=session['usuario'], codigo_chave=codigo)
+            novoEmprestimo = Emprestimo(email_usuario=session['usuario'], codigo_chave=codigo)
             db.session.add(novoEmprestimo)
             db.session.commit()
             return make_response(redirect(url_for('emprestimos')))
@@ -158,12 +162,23 @@ def lista_chaves():
 
 @app.route('/emprestimos')
 def emprestimos():
-    return (render_template('loan_screen.html'))
+    form = UsuarioForm()
+    if session.get('autenticado', False) == False:
+        return (redirect(url_for('login')))
+    email = session['usuario']
+    emprestimo = Emprestimo.query.get(email)
+    codigo = emprestimo.codigo_chave
+    nome_chave = Chave.query.get(int(codigo)).nome
+    return (render_template('loan_screen.html', form=form, codigo=codigo, nome_chave=nome_chave))
 
 
-@app.route('/chaves')
+@app.route('/chaves', methods=['POST', 'GET'])
 def chaves():
-    return (render_template('manager_keys.html'))
+    if session.get('autenticado', False) == False or session.get('admin', False) == False:
+        return (redirect(url_for('login')))
+    form = ChaveForm()
+    chaves = Chave.query.order_by(Chave.nome).all()
+    return (render_template('manager_keys.html', form=form, chaves=chaves))
 
 
 @app.route('/registro', methods=['POST', 'GET'])
@@ -182,18 +197,8 @@ def registro():
                               senha=senhahash, admin=admin)
         db.session.add(novoUsuario)
         db.session.commit()
-        flash(admin)
         return(redirect(url_for('root')))
     return (render_template('register_user.html', form=form))
-
-
-'''def remove(chave):
-    if(len(chave) > 0):
-        db.session.delete(chave)
-        db.session.commit()
-        flash('Chave removida com sucesso!')
-    else:
-        flash('Chave não encontrada!')'''
 
 
 if __name__ == "__main__":

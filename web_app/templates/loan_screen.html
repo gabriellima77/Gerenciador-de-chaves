@@ -13,22 +13,17 @@
 
             <div class="text-box">
                 <p>Código da Chave</p>
-                <div class="text"></div>
+                <div class="text">{{ codigo }}</div>
             </div>
             <div class="text-box">
                 <p>Nome da Chave</p>
-                <div class="text"></div>
-            </div>
-            <div class="text-box">
-                <p>Horário Limite</p>
-                <div class="text"></div>
-            </div>
-            <div class="text-box">
-                <p>Status</p>
-                <div class="text"></div>
+                <div class="text">{{ nome_chave }}</div>
             </div>
 
-            <button class="btn">LOGOUT</button>
+            <form class="logout-form" action="{{ url_for('logout') }}" method="post">
+                {{form.csrf_token}}
+                <button type="submit" class="btn" id="btn1">LOGOUT</button>
+            </form>
 
         </div>
     </div>

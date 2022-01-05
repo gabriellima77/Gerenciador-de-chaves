@@ -6,11 +6,14 @@
   width: 100%;
 }
 
-#block {
+#block{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   width: 60%;
-  height: inherit;
+  height: 60%;
   margin-bottom: 30px;
-  background: #ffffff;
+  background: #FFFFFF;
   border-radius: 20px;
 }
 
@@ -19,9 +22,15 @@ header {
   height: max-content;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+}
+
+table{
+  margin: 10px;
+  vertical-align: middle;
+  text-align: center;
+  border-spacing: 0px 10px;
 }
 
 #logo {
@@ -33,45 +42,11 @@ header {
   margin-right: 5px;
 }
 
-#search {
-  background-color: #ffffff;
-  border-radius: 20px;
-  margin-top: 7px;
-  margin-left: 15px;
-  margin-bottom: 7px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: 30px;
-}
-
-#options {
+#options{
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 40px;
-  width: 60%;
-  margin-bottom: 30px;
-}
-
-.text-input {
-  background-color: rgba(243, 243, 243, 0);
-  padding: 0px;
-  margin-left: 5px;
-  margin-right: 5px;
-  height: 26px;
-  border: none;
-  flex-grow: 1;
-}
-
-textarea:focus,
-input:focus,
-select:focus {
-  box-shadow: 0 0 0 0;
-  border: 0 none;
-  outline: 0;
+  height: 100%;
 }
 
 .logout-form {
@@ -83,27 +58,12 @@ select:focus {
   display: none;
 }
 
-.btn {
-  color: #1d1d1b;
+.btn{
+  color: #1D1D1B;
   border-style: none;
-  background: #c4c4c4;
+  background: #C4C4C4;
   border-radius: 15px;
   flex-grow: 1;
-  height: 90%;
+  height: 50%;
   font-weight: bold;
-}
-
-#btn1 {
-  margin-left: 15px;
-  margin-right: 15px;
-}
-
-#btn2 {
-  margin-right: 15px;
-}
-
-select {
-  height: 90%;
-  flex-grow: 2;
-  border-radius: 10px;
 }

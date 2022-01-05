@@ -34,29 +34,21 @@
   <header>
     <img id="logo" src="../static/img/logoUFCA.png" />
 
-    <div id="search">
-      <input class="text-input" type="search" name="" />
-      <img id="lupa" src="../static/img/lupa.png" />
+    <div id="options">
+      <form class="form" action="{{ url_for('lista_chaves') }}" method="post">
+        {{formChave.csrf_token}}
+        <label class="hidden" for="nome">Nome da chave</label>
+        <input class="hidden" type="text" name="nome" id="nome" />
+        <label class="hidden" for="codigo">Codigo</label>
+        <input class="hidden" type="text" name="codigo" id="codigo" />
+        <button type="submit" name="reservar" class="btn" id="btn2">RESERVAR</button>
+      </form>
+      <form class="logout-form" action="{{ url_for('logout') }}" method="post">
+        {{form.csrf_token}}
+        <button type="submit" class="btn" id="btn1">LOGOUT</button>
+      </form>
     </div>
   </header>
-
-  <div id="options">
-    <select name="" id="select1"></select>
-    <form class="logout-form" action="{{ url_for('logout') }}" method="post">
-      {{form.csrf_token}}
-      <button type="submit" class="btn" id="btn1">LOGOUT</button>
-    </form>
-    <form class="form" action="{{ url_for('lista_chaves') }}" method="post">
-      {{formChave.csrf_token}}
-      <label class="hidden" for="nome">Nome da chave</label>
-      <input class="hidden" type="text" name="nome" id="nome" />
-      <label class="hidden" for="codigo">Codigo</label>
-      <input class="hidden" type="text" name="codigo" id="codigo" />
-      <button type="submit" name="reservar" class="btn" id="btn2">RESERVAR</button>
-    </form>
-
-    <select name="" id="select2"></select>
-  </div>
 
   <div id="block">
     <table class="table">
@@ -67,18 +59,14 @@
           <th>Status</th>
       </tr>
       {% for chave in chaves %}
+        {% if chave.disponivel == True %}
           <tr >
             <td><input onclick="getData(event);" class="chave" type="radio" name="chave" value={{chave.codigo}} /></td>
-            
               <td>{{chave.codigo}}</td>
               <td class="nome">{{chave.nome}}</td>
-              {% if chave.disponivel == True %}
-                <td>Disponível</td>
-              {% endif %}
-              {% if chave.disponivel == False %}
-                <td>Indisponível</td>
-              {% endif %}
-          </tr>
+              <td>Disponível</td>
+            </tr>
+        {% endif %}
       {% endfor %}
       
   </div>

@@ -9,22 +9,38 @@
         <header>
             <img id="logo" src="../static/img/logoUFCA.png">
 
-            <div id="search">
-                <input class="text-input" type="search" name="">
-                <img id="lupa" src="../static/img/lupa.png">
+            <div id="options">
+                <a href="{{url_for('admin')}}" class="btn" id="btn1">ADICIONAR / REMOVER</a>
+
+                <button class="btn" id="btn2">CHAVES EMPRESTADAS</button>
+                
+                <form class="logout-form" action="{{ url_for('logout') }}" method="post">
+                    {{form.csrf_token}}
+                    <button type="submit" class="btn" id="btn1">LOGOUT</button>
+                </form>
             </div>
         </header>
         
-        <div id="options">
-            <select name="" id=""></select>
-
-            <button class="btn" id="btn1">LOGOUT</button>
-
-            <button class="btn" id="btn2">MARCAR COMO ENTREGUE</button>
-        </div>
-        
-        <div id="block">        
-
-        </div>
+        <div id="block">
+            <table class="table">
+              <tr>
+                  <th>Código</th>
+                  <th>Nome</th>
+                  <th>Status</th>
+              </tr>
+              {% for chave in chaves %}
+                  <tr >
+                      <td>{{chave.codigo}}</td>
+                      <td class="nome">{{chave.nome}}</td>
+                      {% if chave.disponivel == True %}
+                        <td>Disponível</td>
+                      {% endif %}
+                      {% if chave.disponivel == False %}
+                        <td>Indisponível</td>
+                      {% endif %}
+                  </tr>
+              {% endfor %}
+              
+          </div>
     </div>
 {% endblock %}
