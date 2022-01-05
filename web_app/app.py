@@ -15,8 +15,7 @@ from flask_session import Session
 from flask import session
 from formLogin import LoginForm
 import hashlib
-import json
-from flask_json import FlaskJSON, JsonError, json_response, as_json
+from flask_json import FlaskJSON
 from database import db
 
 
