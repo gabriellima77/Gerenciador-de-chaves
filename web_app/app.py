@@ -121,6 +121,7 @@ def admin():
             if (disponivel == 'disponivel'):
                 chave = Chave.query.get(int(codigo))
                 chave.disponivel = True
+                Emprestimo.query.filter_by(codigo_chave=codigo).delete()
                 db.session.commit()
                 message = 'Chave Entregue'
             elif (remover == 'remover'):
@@ -144,6 +145,9 @@ def admin():
 def lista_chaves():
     form = UsuarioForm()
     formChave = ChaveForm()
+    if session.get('autenticado', False) == False:
+        return (redirect(url_for('login')))
+    form = UsuarioForm()
     if formChave.validate_on_submit():
         # PROCESSAMENTO DOS DADOS RECEBIDOS
         nome = request.form['nome']
@@ -151,7 +155,8 @@ def lista_chaves():
         chave = Chave.query.get(int(codigo))
         if(chave.disponivel):
             chave.disponivel = False
-            novoEmprestimo = Emprestimo(email_usuario=session['usuario'], codigo_chave=codigo)
+            novoEmprestimo = Emprestimo(
+                email_usuario=session['usuario'], codigo_chave=codigo)
             db.session.add(novoEmprestimo)
             db.session.commit()
             return make_response(redirect(url_for('emprestimos')))
@@ -162,10 +167,10 @@ def lista_chaves():
 
 @app.route('/emprestimos')
 def emprestimos():
-    form = UsuarioForm()
     if session.get('autenticado', False) == False:
         return (redirect(url_for('login')))
     email = session['usuario']
+    form = ChaveForm()
     emprestimo = Emprestimo.query.get(email)
     codigo = emprestimo.codigo_chave
     nome_chave = Chave.query.get(int(codigo)).nome
@@ -183,6 +188,13 @@ def chaves():
 
 @app.route('/registro', methods=['POST', 'GET'])
 def registro():
+    if session.get('autenticado', True) == True:
+        email = session['usuario']
+        emprestimo = Emprestimo.query.get(email)
+        resp = make_response(redirect(url_for('lista_chaves')))
+        if(emprestimo):
+            resp = make_response(redirect(url_for('emprestimos')))
+        return resp
     form = UsuarioForm()
     if form.validate_on_submit():
         # PROCESSAMENTO DOS DADOS RECEBIDOS

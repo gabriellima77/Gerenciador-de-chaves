@@ -15,9 +15,21 @@ select:focus {
   margin-bottom: 40px;
 }
 
+header {
+  display: flex;
+  justify-content: center;
+}
+
 #logo {
   transform: scale(0.8);
   width: 30%;
+}
+
+#options {
+  display: flex;
+  width: 40%;
+  align-items: center;
+  justify-content: space-around;
 }
 
 #block {
@@ -29,6 +41,11 @@ select:focus {
   height: 356px;
   background: #ffffff;
   border-radius: 20px;
+}
+
+#btn1 {
+  background: #c4c4c4;
+  color: #1d1d1b;
 }
 
 p {

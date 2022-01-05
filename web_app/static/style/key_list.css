@@ -49,9 +49,11 @@ table{
   height: 100%;
 }
 
-.logout-form {
+.logout-form, .form {
   width: fit-content;
   height: 100%;
+  display: grid;
+  place-items: center;
 }
 
 .hidden {
